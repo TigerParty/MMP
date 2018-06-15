@@ -1,0 +1,47 @@
+.react-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: map-get($z-layers, modal-fixed);
+  @include background-opacity($greyish-brown, 0.4)
+  .react-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+    overflow: scroll;
+    @include breakpoint(lg) {
+      width: 80%;
+      height: auto;
+      bottom: unset;
+      right: unset;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    @include breakpoint(xl) {
+      width: 70%;
+      max-width: 800px;
+      &.large {
+        max-width: 1200px;
+      }
+    }
+    .header {
+      background-color: $yellow-tan;
+      .close-btn:hover, .close-btn:focus {
+        opacity: 0.5;
+      }
+    }
+    *:disabled, *[disabled] {
+      opacity: 0.5!important;
+      &:hover {
+        cursor: default;
+      }
+    }
+  }
+}
+

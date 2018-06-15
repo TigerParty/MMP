@@ -1,0 +1,14 @@
+<div class="input-group date" >
+	<input type="hidden" name="<% namespace %>" value="<% sql_date %>">
+	<input type="text" class="form-control"
+        ng-readonly="true"
+        ng-model="date"
+        ng-click="openDatePicker($event)"
+        is-open="DatePickerOpened"
+        uib-datepicker-popup="<% date_format %>"
+        close-text="Cancel"
+    >
+  	<span class="input-group-addon white-bg cursor-pointer" ng-click="openDatePicker($event)">
+        <span class="glyphicon glyphicon-calendar" ></span>
+    </span>
+</div>

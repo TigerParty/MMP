@@ -1,0 +1,85 @@
+.data-list {
+  @include breakpoint(lg) {
+    table {
+      thead {
+        th {
+          border-top: none;
+          border-bottom-width: 1px;
+        }
+      }
+      tbody {
+        tr {
+          td {
+            vertical-align: middle;
+          }
+        }
+      }
+    }
+  }
+  .item {
+    border-top: 2px solid $bg-color;
+    .info-content {
+      .dot {
+        height: 8px;
+        width: 8px;
+        margin-bottom: 2px;
+      }
+      .arrow-block {
+        background: #ffffff;
+        img {
+          transform: rotate(90deg) scale(1.5);
+          transition: transform 0.5s;
+        }
+      }
+    }
+    .detail-content {
+      max-height: 0px;
+      overflow: hidden;
+      transition: max-height 0.5s, padding 0.5s;
+      background-color: $bg-color;
+      padding: 0px;
+    }
+    .function-tools {
+      border-top: 2px solid #ffffff;
+      padding-top: 15px;
+      @include breakpoint(lg) {
+        border-top: none;
+        padding-top: 0px;
+        min-width: 200px;
+      }
+      .edit-btn {
+        border-right: 2px solid #ffffff;
+        @include breakpoint(lg) {
+          border-color: $bg-color;
+        }
+      }
+
+    }
+    &.active {
+      .info-content {
+        position: relative;
+        .arrow-block {
+          top: 0;
+          bottom: 0;
+          position: absolute;
+          right: 0;
+          background: $bg-color;
+          display: flex;
+          overflow: hidden;
+          img {
+            transform: rotate(-90deg) scale(1.5);
+            margin: auto auto;
+            transition: transform 1s;
+          }
+        }
+      }
+      .detail-content {
+        max-height: 500px;
+        transition: max-height 1s, padding 1s;
+        padding: 15px 0px;
+      }
+
+    }
+  }
+}
+

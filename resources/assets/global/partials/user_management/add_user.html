@@ -1,0 +1,79 @@
+<div class="modal-header">
+  <div class="modal-title" style="font-size: 24px; text-align: center; font-weight:bolder">
+    <span ng-if="mode == 'add'">Add User</span>
+    <span ng-if="mode == 'edit'">Edit User</span>
+    <a href="" class="pull-right" style="font-size: 12px; line-height: 28px; color: #CCC" ng-click="cancel()">
+      <span class="glyphicon glyphicon-remove" ></span>
+    </a>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="fluid-container">
+    <div>
+      <p style="font-size: 16px">
+        User Name
+        <span class="pull-right" style="color: <% validator.nameMsg.color ? validator.nameMsg.color : 'black' %>;">
+          <img style="margin-right: 5px" ng-show="validator.nameStatusIcon" ng-src="<% validator.nameStatusIcon %>">
+          <% validator.nameMsg.msg %>
+        </span>
+      </p>
+    </div>
+
+    <div class="form-group">
+      <input class="form-control" ng-blur="nameChecker()" type="text" ng-model="user.name" style="background: <% validator.nameBg %>;">
+    </div>
+
+    <div>
+      <p style="font-size: 16px">
+        Email
+        <span class="pull-right" style="color: <% validator.emailMsg.color ? validator.emailMsg.color : 'black' %>;">
+          <img style="margin-right: 5px" ng-show="validator.emailStatusIcon" ng-src="<% validator.emailStatusIcon %>">
+          <% validator.emailMsg.msg %>
+        </span>
+      </p>
+    </div>
+
+    <div class="form-group">
+      <input class="form-control" ng-blur="emailChecker()" type="text" ng-model="user.email" style="background: <% validator.emailBg %>;">
+    </div>
+
+    <div>
+      <p style="font-size: 16px">
+        Password
+        <span class="pull-right" style="color: <% validator.passwordMsg.color ? validator.passwordMsg.color : 'black' %>;">
+          <img style="margin-right: 5px" ng-show="validator.passwordStatusIcon" ng-src="<% validator.passwordStatusIcon %>">
+          <% validator.passwordMsg.msg %>
+        </span>
+      </p>
+    </div>
+
+    <div class="form-group">
+      <input ng-if="mode == 'add'" class="form-control" ng-blur="passwordChecker()" type="password" ng-model="user.password" style="background: <% validator.passwordBg %>;">
+      <input ng-if="mode == 'edit'" class="form-control" ng-blur="passwordChecker()" type="password" ng-model="user.password" style="background: <% validator.passwordBg %>;" ng-click="user.password_changed ? false : resetPassword()">
+    </div>
+
+    <div>
+      <p style="font-size: 16px">
+        User Type
+        <span class="pull-right" style="color: <% validator.userTypeMsg.color ? validator.userTypeMsg.color : 'black' %>;">
+          <img style="margin-right: 5px" ng-show="validator.userTypeStatusIcon" ng-src="<% validator.userTypeStatusIcon %>">
+          <% validator.userTypeMsg.msg %>
+        </span>
+      </p>
+    </div>
+
+    <div class="form-group">
+      <select class="form-control"
+        style="background: <% validator.userTypeBg %>;"
+        ng-model="user.permission_level"
+        ng-options="permission_level.name for permission_level in permission_levels track by permission_level.id"
+        ng-blur="userTypeChecker()">
+        <option value="">- Select User Type -</option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default" type="button" ng-click="cancel()">Close</button>
+  <button class="btn btn-primary" type="button" ng-click="saveBtn()">Save</button>
+</div>

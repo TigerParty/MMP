@@ -1,0 +1,25 @@
+<div class="row" ng-repeat="mediaGroup in $ctrl.mediaGroups">
+  <div class="col-md-12">
+    <div class="title">
+      <span><% mediaGroup.attached_at %></span>
+    </div>
+  </div>
+  <div class="col-sm-3 col-md-3" ng-repeat="(index, item) in mediaGroup.items">
+    <div class="project-admin-img-box">
+      <img ng-src="<% item.attachment_path %>">
+    </div>
+    <div class="row tools-row">
+      <button class="project-admin-button" ng-click="$ctrl.deleteImage(index, mediaGroup)">
+        <span class="glyphicon glyphicon-remove"></span>Delete
+      </button>
+      <button class="project-admin-button" ng-click="$ctrl.rotateImage(item)">
+        <span class="glyphicon glyphicon-repeat"></span>Rotate
+      </button>
+    </div>
+    <input type="text" class="form-control" ng-model="item.description.header" placeholder="Title">
+    <textarea class="form-control" ng-model="item.description.content" placeholder="Description"></textarea>
+    <div>
+      <br>
+    </div>
+  </div>
+</div>

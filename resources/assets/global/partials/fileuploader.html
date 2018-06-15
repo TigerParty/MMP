@@ -1,0 +1,9 @@
+<div class="col-md-12">
+		<p>Maximum file size to upload is 32MB.</p>
+		<div ng-if="isLogo">
+			<input type="file" ngf-select="uploadFile($file)" accept="image/png, image/jpeg" />
+		</div>
+		<div ng-if="!isLogo">
+			<input type="file" ngf-select="uploadFile($file)"  />
+		</div>
+</div>

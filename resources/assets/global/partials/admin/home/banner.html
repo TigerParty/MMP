@@ -1,0 +1,111 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Banner</h3>
+    <label class="btn btn-default pull-right del-btn" ng-click="$ctrl.deleteComponent()"> Delete</label>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-12">
+          <h4 class="sub-title">Background Image</h4>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+          <p class="sub-title">Size: 1200x764px, Format: .jpg or .png</p>
+      </div>
+    </div>
+
+    <div class="row form-group">
+      <div class="col-md-2 col-xs-4 position-adjust">Upload Image</div>
+      <div class="col-md-6 col-xs-6">
+        <input type="text" class="form-control" style="height: 35px" placeholder="Browse" readonly ng-model="$ctrl.home_components.banner.background_data.name">
+        <input type="hidden" name="home_components[banner][background_data][id]" value="<% $ctrl.home_components.banner.background_data.id %>">
+        <input type="hidden" name="home_components[banner][background_data][name]" value="<% $ctrl.home_components.banner.background_data.name %>">
+      </div>
+
+      <div class="col-md-4 col-xs-2 upload-btn">
+        <label class="btn btn-default">
+          <input id="my-file-selector" type="file" class="uploadfile" accept="image/png, image/jpeg"  ngf-select="$ctrl.uploadBackgroundImage($file)" >
+          Upload
+        </label>
+      </div>
+    </div>
+    <div class="progress" ng-if=" $ctrl.background_image.progress > 0">
+      <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+      aria-valuenow="<% $ctrl.background_image.progress %>" aria-valuemin="0" aria-valuemax="100" style="width:<% $ctrl.background_image.progress %>%">
+      </div>
+    </div>
+
+    <div class="alert alert-danger" ng-if=" $ctrl.background_image.uploadSuccessfully == false">
+      <a href="#" class="close"  data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>Oh snap!</strong> Image may not be in the right format or size.
+    </div>
+
+    <div class="alert alert-success" ng-if=" $ctrl.background_image.uploadSuccessfully">
+      <a href="#" class="close"  data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>Well done! Image successfully added</strong>
+    </div>
+    <br>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h4 class="sub-title">Image Title</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <p class="sub-title">Max. 30 characters for each</p>
+      </div>
+    </div>
+
+    <div class="row form-group" ng-class="{'has-error': $ctrl.data.line1.length > 30}">
+      <div class="col-md-12">
+        <input type="text" class="form-control" name="home_components[banner][line1]" ng-model="$ctrl.data.line1" placeholder="Enter Image Title here">
+      </div>
+    </div>
+    <div class="row" ng-if="$ctrl.data.line1.length < 31">
+      <div class="col-md-12">
+        <p class="sub-title"><% 30 - $ctrl.data.line1.length %> characters left</p>
+      </div>
+    </div>
+    <div class="row" ng-if="$ctrl.data.line1.length > 30">
+      <div class="col-md-12">
+        <p class="alert-text">Max character length reached</p>
+      </div>
+    </div>
+
+    <div class="row form-group" ng-class="{'has-error': $ctrl.data.line2.length > 30}">
+      <div class="col-md-12">
+        <input type="text" class="form-control" name="home_components[banner][line2]" ng-model="$ctrl.data.line2" placeholder="Enter Image Title here">
+      </div>
+    </div>
+    <div class="row" ng-if="$ctrl.data.line2.length < 31">
+      <div class="col-md-12">
+        <p class="sub-title"><% 30 - $ctrl.data.line2.length %> characters left</p>
+      </div>
+    </div>
+    <div class="row" ng-if="$ctrl.data.line2.length > 30">
+      <div class="col-md-12">
+        <p class="alert-text">Max character length reached</p>
+      </div>
+    </div>
+
+    <div class="row form-group" ng-class="{'has-error': $ctrl.data.line3.length > 30}">
+      <div class="col-md-12">
+        <input type="text" class="form-control" name="home_components[banner][line3]" ng-model="$ctrl.data.line3" placeholder="Enter Image Title here">
+      </div>
+    </div>
+    <div class="row" ng-if="$ctrl.data.line3.length < 31">
+      <div class="col-md-12">
+        <p class="sub-title"><% 30 - $ctrl.data.line3.length %> characters left</p>
+      </div>
+    </div>
+    <div class="row" ng-if="$ctrl.data.line3.length > 30">
+      <div class="col-md-12">
+        <p class="alert-text">Max character length reached</p>
+      </div>
+    </div>
+  </div>
+</div>
+<br>

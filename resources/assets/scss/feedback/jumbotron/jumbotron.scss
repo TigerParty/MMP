@@ -1,0 +1,63 @@
+.jumbotron {
+  .info {
+    .title, .count-num {
+      line-height: 1.2
+    }
+    .description {
+      mask-image: linear-gradient(to top, rgba(255, 255, 255, 0.3), #ffffff);
+      -webkit-mask-image: linear-gradient(to top, rgba(255, 255, 255, 0.3), #ffffff);
+      &.without-mask {
+        mask-image: none;
+        -webkit-mask-image: none;
+      }
+      &.active {
+        mask-image: none;
+        -webkit-mask-image: none;
+        & + .row {
+          .description-trigger-btn img{
+            transform: rotate(180deg);
+          }
+        }
+      }
+      @include breakpoint(lg) {
+        mask-image: none;
+        -webkit-mask-image: none;
+        .text-truncate {
+          white-space: unset;
+        }
+      }
+    }
+    .description-trigger-btn {
+      img{
+        width: 12px;
+        height: auto;
+      }
+    }
+  }
+
+  .counter {
+    min-height: 250px;
+    .chart {
+      width: 28px;
+      background-color: #99b8ff;
+      overflow: hidden;
+      &.yellow-bg{
+        background-color: #fff0a3;
+      }
+      .chart-bar {
+        bottom: 0;
+        height: 0;
+      }
+    }
+    .number-info {
+      .number {
+        line-height: 0.83;
+      }
+      .divider {
+        height: 2px;
+        background-color: #f5f6fa;
+      }
+    }
+
+  }
+}

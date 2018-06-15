@@ -1,0 +1,75 @@
+.filter-tools {
+  &.dark {
+    background: #bec0c3;
+    .clear-btn {
+      color: $greyish-brown!important;
+    }
+  }
+  .search {
+    input {
+      background: $bg-color;
+      &::placeholder {
+        color: $greyish-brown;
+      }
+      &:-ms-input-placeholder {
+        color: $greyish-brown;
+      }
+      &::-ms-input-placeholder {
+        color: $greyish-brown;
+      }
+      &:focus {
+        border: none!important;
+        box-shadow: none!important;
+        background-color: $bg-color!important;
+      }
+    }
+    .input-group-append{
+      background: $bg-color;
+      padding-right: 12px;
+    }
+  }
+  select {
+    background: $bg-color;
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+    height: 40px!important;
+    -webkit-appearance: none;
+    &:focus {
+      border: none!important;
+      box-shadow: none!important;
+      background-color: $bg-color!important;
+    }
+  }
+
+  .clear-btn {
+    color: $lightish-blue;
+
+  }
+  @include breakpoint(lg) {
+    &:not(.dark){
+      background: $yellow-tan;
+      .input-group {
+        input, .input-group-append{
+          background: #fff0a3;
+          &:focus {
+            background: #fff0a3!important;
+          }
+        }
+      }
+    }
+    &:not(.dark){
+      select {
+        background: #fff0a3;
+        background-position: right 12px center;
+        background-repeat: no-repeat;
+        -webkit-appearance: none;
+        &:focus {
+          background-color: #fff0a3!important;
+        }
+      }
+    }
+    .clear-btn {
+      color: $greyish-brown;
+    }
+  }
+}

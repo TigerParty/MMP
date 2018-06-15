@@ -1,0 +1,16 @@
+<attach-uploader
+    attach-ids="$ctrl.newAttachIds"
+    attaches="$ctrl.newAttaches"
+    reset-flag="$ctrl.resetTrigger"
+    on-success="$ctrl.onUploadFinished()"
+></attach-uploader>
+<p>Maximum file size to upload is 32MB.</p>
+<div ng-repeat="(index, attach) in $ctrl.attaches">
+    <a class="glyphicon glyphicon-trash"
+        style="margin-right: 5px;"
+        ng-click="$ctrl.deleteAttach(index)"
+    ></a>
+    <a ng-href="<% attach.download_path %>"
+        ng-bind="attach.name"
+    ></a>
+</div>

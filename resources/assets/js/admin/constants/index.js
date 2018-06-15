@@ -1,0 +1,1 @@
+export const PROJECT_DATETIME_FORMATE = 'MMM DD, YYYY'

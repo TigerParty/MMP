@@ -1,0 +1,13 @@
+<label class="control-label col-sm-4 col-md-3" ><% field.name %></label>
+<div class="col-sm-8 col-md-9">
+	<input type="hidden" name="report[dynamic_form][fields][<% index %>][is_required]" ng-value="field.is_required">
+	<input type="hidden" name="report[dynamic_form][fields][<%index%>][group][id]" value="<%field.id%>">
+		<label class="checkbox-inline" ng-repeat="(idx, option) in field.options">
+			<input type="checkbox"
+						ng-model="field.value[option]"
+						ng-value="option"
+			>
+			<% option %>
+		</label>
+	<input type="hidden" name="report[dynamic_form][fields][<%index%>][group][value]" value="<%field.value%>">
+</div>

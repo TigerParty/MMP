@@ -1,0 +1,61 @@
+<div class="row info-row">
+  <div class="col-sm-12 col-md-12 col-lg-12" ng-show="$ctrl.projects.length > 0">
+    <div class="row">
+      <div class="col-md-6 color-white total">
+        <div>
+          Showing
+          <%($ctrl.currentPage-1)*$ctrl.projectsPerPage+1%>
+          -
+          <% $ctrl.totalItems/($ctrl.currentPage*$ctrl.projectsPerPage)>1 ? ($ctrl.currentPage-1)*$ctrl.projectsPerPage+$ctrl.projectsPerPage : $ctrl.totalItems %>
+          of
+          <% $ctrl.totalItems %>
+        </div>
+        <ul uib-pagination class="pagination-sm margin-zero"
+          total-items="$ctrl.totalItems"
+          ng-model="$ctrl.currentPage"
+          max-size="5"
+          items-per-page="$ctrl.projectsPerPage"
+          previous-text="&lsaquo;"
+          next-text="&rsaquo;">
+        </ul>
+      </div>
+      <div class="col-md-6 padding-right-zero">
+        <div class="color-white">Sort By:</div>
+        <select class="dropdown-list"
+          ng-model="$ctrl.conditions.orderBy"
+          ng-change="$ctrl.searchProjects()">
+          <option value="">- Sort By -</option>
+          <option value="title">Alphabetical order</option>
+          <option value="updated_at">Most recently updated</option>
+          <option value="created_at">Time of Creation</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row text-center loading-info" ng-show="$ctrl.searchProcessing">
+  <p>
+    <img class="loading-img"  ng-src="<% $ctrl.loadingImage %>">
+    <% $ctrl.loadingProjects %>
+  </p>
+</div>
+<div class="row no-project-info text-center" ng-show="$ctrl.projects.length == 0 && !$ctrl.searchProcessing">
+  <p>
+    No project to show
+  </p>
+</div>
+
+<div class="project-list" ng-show="!$ctrl.searchProcessing">
+  <div>
+    <div class="row item" ng-repeat="project in $ctrl.projects | startFrom:($ctrl.currentPage-1)*$ctrl.projectsPerPage | limitTo:$ctrl.projectsPerPage track by $index" ng-mouseenter="$ctrl.markerPopupSwitch(project.id, true)" ng-mouseleave="$ctrl.markerPopupSwitch(project.id, false)">
+      <div class="col-sm-3 project-img">
+        <img ng-src="<% project.cover_image_path %>">
+      </div>
+      <div class="col-sm-9 project-detail">
+        <p><a ng-href="/project/<% project.id %>"><% ($ctrl.currentPage-1)*10+1+$index %>. <% project.title %></a></p>
+        <p class="description"><% project.description | removeHtmlTag %></p>
+      </div>
+    </div>
+  </div>
+</div>

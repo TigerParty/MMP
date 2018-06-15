@@ -1,0 +1,6 @@
+<h4 ng-bind="$ctrl.subregionLabel"></h4>
+<ul>
+    <li ng-repeat="subregion in $ctrl.data">
+      <span><% $index+1| decimalLeadingZero %></span><a ng-href="<% subregion.path %>"><% subregion.name %></a>
+    </li>
+</ul>

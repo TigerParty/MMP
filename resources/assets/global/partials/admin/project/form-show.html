@@ -1,0 +1,39 @@
+<div class="row" id="form-show" ng-repeat="form in $ctrl.forms">
+  <div class="col-md-offset-1 col-md-10 border-left-right">
+    <a class="pull-right project-admin-button color-black"
+      ng-href="<% $ctrl.absUri + 'admin/project/' + $ctrl.projectId +'/form/' + form.id + '/edit' %>"
+    >edit</a>
+
+    <h5 class="project-admin-section-title"><% form.name %></h5>
+    <dl>
+      <div ng-repeat="field in form.values" class="row project-admin-field-div">
+        <dt class="col-md-3 project-admin-dt"><% field.name %></dt>
+        <dd class="col-md-9" ng-if="field.field_template_key != 'date' && field.field_template_key != 'gps_tracker'"><% ::field.value || '-' %></dd>
+        <dd class="col-md-9" ng-if="field.field_template_key == 'date'"><% ::(field.value | date:format:'dd LLLL, yyyy') %></dd>
+        <dd class="col-md-9" ng-if="field.field_template_key == 'gps_tracker'">
+          <p>Average Speed: <% field.value.avg_speed %> km/h</p>
+          <p>Data period: <% field.value.start_at %> ~ <% field.value.end_at %></p>
+        </dd>
+      </div>
+
+      <div class="row">
+        <dt class="col-md-12 project-admin-dt">images:</dt>
+      </div>
+      <div class="row">
+        <dt class="col-md-12 project-admin-image-section">
+          <div class="row" ng-repeat="media_group in form.media_groups">
+            <div class="title"><span><% media_group.attached_at %></span> </div>
+            <div class="col-sm-3 col-md-3" ng-repeat="item in media_group.items">
+              <div class="project-admin-img-box"><img ng-src="<% item.attachment_path %>"></div>
+              <p ng-if="!item.description">No description</p>
+
+              <h5 ng-if="item.description.header"><% item.description.header %></h5>
+              <p ng-if="item.description"><% item.description.content %></p>
+            </div>
+          </div>
+        </dt>
+      </div>
+    </dl>
+    <hr class="project-admin-hr" />
+  </div>
+</div>

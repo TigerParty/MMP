@@ -1,0 +1,58 @@
+<div class="modal-body" id="modal-body">
+
+	<div class="row title">
+		<h1> <% tutorialCtrl.stepObj[tutorialCtrl.step].title %></h1>
+	</div>
+
+	<div class="row step-wizard">
+		<div class="col-xs-4 col-md-2 col-md-offset-3 step " ng-class="{'active': tutorialCtrl.step == 0, 'complete': tutorialCtrl.step > 0}">
+			<div class="dot">
+				<span>1</span>
+			</div>
+			<div class="progress">
+				<div class="progress-bar">
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-4 col-md-2 step " ng-class="{'active': tutorialCtrl.step == 1, 'complete': tutorialCtrl.step > 1}">
+			<div class="dot">
+				<span>2</span>
+			</div>
+			<div class="progress">
+				<div class="progress-bar">
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-4 col-md-2 step" ng-class="{'active': tutorialCtrl.step == 2, 'complete': tutorialCtrl.step > 2}">
+			<div class="dot">
+				<span>3</span>
+			</div>
+			<div class="progress">
+				<div class="progress-bar">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row tutorial-img">
+		<div class="col-xs-12 col-md-10 col-md-offset-1">
+			<img width="100%" ng-src="<% tutorialCtrl.stepObj[tutorialCtrl.step].img %>">
+		</div>
+	</div>
+
+	<div class="row tutorial-description">
+		<div class="col-xs-12 col-md-10 col-md-offset-1">
+			<p><% tutorialCtrl.stepObj[tutorialCtrl.step].description %></p>
+		</div>
+
+	</div>
+
+	<div class="row navbar-fixed-bottom tutorial-button">
+		<button type="button" class="btn btn-default grey-btn" ng-if="tutorialCtrl.step == 0" ng-click="tutorialCtrl.close()">Cancel</button>
+		<button type="button" class="btn btn-default grey-btn" ng-if="tutorialCtrl.step != 0" ng-click="tutorialCtrl.step=tutorialCtrl.step-1">Previous</button>
+		<button type="button" class="btn btn-default blue-btn" ng-if="tutorialCtrl.step != 2" ng-click="tutorialCtrl.step=tutorialCtrl.step+1">Next</button>
+		<button type="button" class="btn btn-default blue-btn" ng-if="tutorialCtrl.step == 2" ng-click="tutorialCtrl.close()">Got it!</button>
+
+	</div>
+
+</div>

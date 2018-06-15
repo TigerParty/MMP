@@ -1,0 +1,19 @@
+<div class="row" ng-if="$ctrl.highchartObjects.length > 0">
+  <div style="height:400px; position: relative;">
+    <a href="" class="chart-carousel-btn previous" ng-click="$ctrl.previousChart()" ng-show="$ctrl.highchartObjects.length > 1" ng-hide="$ctrl.chartIndex==0" ><span class="glyphicon glyphicon-chevron-left"></span></a>
+    <ul style="height: 100%; width: 80%; margin: auto"
+        rn-carousel
+        rn-carousel-buffered
+        rn-carousel-index="$ctrl.chartIndex">
+      <li ng-repeat="chart in $ctrl.highchartObjects track by $index" class="col-md-9 col-xs-12" class="image-item" style="display: inline-block;" >
+        <highchart id="chart1" config="chart" title="Browser usage"></highchart>
+      </li>
+    </ul>
+
+    <a href="" class="chart-carousel-btn next" ng-click="$ctrl.nextChart()" ng-show="$ctrl.highchartObjects.length > 1" ng-class="{'display':$ctrl.chartIndex==$ctrl.highchartObjects.length-1}"><span class="glyphicon glyphicon-chevron-right"></span></a>
+
+    <div class="carousel-controls" ng-show="$ctrl.highchartObjects.length > 1">
+      <a href="" ng-click="$ctrl.chartTo($index)" ng-repeat="chart in $ctrl.highchartObjects track by $index" ng-class="{'carousel-controls-active': $ctrl.chartIndex == $index}"></a>
+    </div>
+  </div>
+</div>

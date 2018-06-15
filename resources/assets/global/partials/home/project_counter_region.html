@@ -1,0 +1,20 @@
+<div id="wrapper-project-counter-region" class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="container">
+        <div class="title">
+          <h4>CURRENT SCHOOLS
+            <br>
+              <% total %>
+          </h4>
+        </div>
+        <div class="region-stats">
+          <div class="region" ng-repeat="region in regions">
+            <p><% region.projects.length %></p>
+            <p><% region.name %><span ng-show="region.name.length < 15"><br>&nbsp;</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

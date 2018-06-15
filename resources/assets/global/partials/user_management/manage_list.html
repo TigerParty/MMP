@@ -1,0 +1,78 @@
+<div class="modal-header">
+  <div class="modal-title" style="font-size: 24px; text-align: center; font-weight:bolder">
+    <% rootContainerName %>s
+    <a href="" class="pull-right" style="font-size: 12px; line-height: 28px; color: #CCC" ng-click="cancel()">
+      <span class="glyphicon glyphicon-remove" ></span>
+    </a>
+  </div>
+</div>
+<div class="modal-body manage-list-content">
+    <ul class="list-group">
+        <li class="list-group-item title-row">
+          <div class="row">
+            <div class="col-xs-8 col-sm-8 col-md-8 filter-block">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-filter"></span>
+                </span>
+                <span class="filter-select"
+                      ng-repeat="(index, region_label) in regionLabels"
+                      ng-disabled="!regions[index]">
+                  <select class="form-control"
+                          ng-options="region.id as region.name for region in regions[index] track by region.id"
+                          ng-model="filterRegions[index]"
+                          ng-change="updateRegions(index)"
+                          ng-disabled="!regions[index]">
+                          <option value="">- <% region_label | titleize %> -</option>
+                  </select>
+                </span>
+              </div>
+
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+              <select class="form-control project-select"
+                      ng-options="project.title for project in projectLists track by project.id"
+                      ng-model="selectProject"
+                      ng-class="{'disabled': projectLists.length < 1}"
+                      ng-disabled="projectLists.length < 1">
+                <option value="">- <% rootContainerName %> -</option>
+              </select>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1 add-btn" ng-class="{'disabled': !selectProject}">
+              <span class="glyphicon glyphicon-plus" ng-click="addUserProject(selectProject)"></span>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item" ng-class="{'delete-row': deleteId==project.id}" ng-repeat="project in manage_project_list | limitTo:numOfPage:(currentPage-1)*numOfPage track by $index">
+          <div ng-hide="deleteId == project.id">
+            <% project.title %>
+            <i ng-show="project.regions.length > 0" style="font-style: normal;">(</i>
+                <span ng-repeat="region in project.regions" class="region-name"><% region.name %> </span>
+            <i ng-show="project.regions.length > 0" style="font-style: normal;">)</i>
+            <i class="pull-right remove-btn" ng-click="showDeleteRow(project.id)"> <span class="glyphicon glyphicon-remove" ></span>
+            </i>
+          </div>
+          <div ng-if="deleteId == project.id" >
+            Are you sure to delete it?
+            <button class="btn btn-danger btn-sm pull-right"
+                    ng-click="deleteProjectRow(project.id, $index)">Yes</button>
+            <button class="btn btn-default btn-sm pull-right"
+                    ng-click="showProjectRow()">Cancel</button>
+          </div>
+        </li>
+    </ul>
+    <div class="pagination-row">
+      <ul class="pagination pagination pull-right">
+        <li><a href="#" ng-click="currentPage = 1" ng-class="{ linkDisabled: currentPage == 1}"><span class="glyphicon glyphicon-step-backward"></span></a></li>
+        <li><a href="#" ng-click="currentPage = currentPage - 1" ng-class="{ linkDisabled: currentPage == 1}"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+        <li><span class="current_page"><% currentPage %></span></li>
+        <li><span>of <% maxPage %></span></li>
+        <li><a href="#" ng-click="currentPage = currentPage + 1" ng-class="{ linkDisabled: currentPage == maxPage }"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+        <li><a href="#" ng-click="currentPage =  maxPage" ng-class="{ linkDisabled: currentPage == maxPage }"><span class="glyphicon glyphicon-step-forward"></span></a></li>
+      </ul>
+      <span class="pull-right page-text">Page</span>
+    </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" type="button" ng-click="cancel()">Close</button>
+</div>

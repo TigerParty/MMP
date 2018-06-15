@@ -1,0 +1,95 @@
+<div class="filter-row">
+  <span>Filters</span>
+  <div class="" ng-repeat="(condition_type,filterContainer) in $ctrl.filters">
+    <div ng-repeat="filter in filterContainer" style="display: inline-flex">
+        <select  ng-if="filter.filter_key == 'drop_down_list'"
+          class="form-control"
+          ng-options="item for item in filter.options"
+          ng-model="filter.value"
+          ng-change="$ctrl.filterChanged('fields', filter)">
+          <option value="">-Select-</option>
+        </select>
+        <input ng-if="filter.filter_key != 'drop_down_list'"
+          type="text" class="form-control"
+          placeholder="Input <% filter.name %>"
+          ng-model="filter.value"
+          ng-change="$ctrl.filterChanged('fields', filter)">
+    </div>
+  </div>
+
+  <div class="input-group" style="width: 25%;margin-left: auto">
+     <input type="text" class="form-control" placeholder="Search" ng-model="$ctrl.conditions['title']">
+    <div class="input-group-addon" role="button" tabindex="0" ng-click="$ctrl.filterContainer()">
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+    </div>
+  </div>
+</div>
+<div class="filter-row" style="padding-right: 0px">
+  <span>Sort by</span>
+  <select  class="form-control"
+           style="width: 15%"
+           ng-model="$ctrl.order"
+           ng-change="$ctrl.filterContainer()">
+    <option value="title">Title</option>
+    <option ng-repeat-start="(condition_type,filterContainer) in $ctrl.filters" ng-hide="true"></option>
+    <option ng-repeat-end ng-repeat="filter in filterContainer" value="<% condition_type %>.<%filter.id%>"><% filter.name %></option>
+  </select>
+  <div class="pagination-row" style="margin-left: auto;margin-top: 4px;display: table;">
+    <span class="page-text" style="display: table-cell;vertical-align: middle;padding-right: 10px;"><% $ctrl.totalText%></span>
+    <span class="page-text" style="display: table-cell;vertical-align: middle;padding-right: 3px;">Page</span>
+    <ul class="pagination pagination " style="margin-bottom: 0px;display: table-cell;">
+      <li><a href="#" ng-click="$ctrl.currentPage = 1" ng-class="{ linkDisabled: $ctrl.currentPage == 1}"><span class="glyphicon glyphicon-step-backward"></span></a></li>
+      <li><a href="#" ng-click="$ctrl.currentPage = $ctrl.currentPage - 1" ng-class="{ linkDisabled: $ctrl.currentPage == 1}"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+      <li><span class="current_page"><% $ctrl.currentPage %></span></li>
+      <li><span>of <% $ctrl.maxPage %></span></li>
+      <li><a href="#" ng-click="$ctrl.currentPage = $ctrl.currentPage + 1" ng-class="{ linkDisabled: $ctrl.currentPage == $ctrl.maxPage }"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+      <li><a href="#" ng-click="$ctrl.currentPage =  $ctrl.maxPage" ng-class="{ linkDisabled: $ctrl.currentPage == $ctrl.maxPage }"><span class="glyphicon glyphicon-step-forward"></span></a></li>
+      <!-- <li><a href="#" class="printer"><span class="glyphicon glyphicon-print"></span></a></li> -->
+    </ul>
+
+  </div>
+</div>
+<!-- table-hover -->
+<table class="table result-table">
+  <thead>
+    <tr>
+      <th class="col-md-1"></th>
+      <th class="col-md-2"></th>
+      <th class="col-md-2">Title</th>
+      <th class="col-md-2" ng-repeat="filter in $ctrl.filters.field"><% filter.name %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="project in $ctrl.data | limitTo:$ctrl.numOfPage:($ctrl.currentPage-1)*$ctrl.numOfPage">
+        <td>
+          <a ng-href="<% project.path %>">
+            <% (($ctrl.currentPage-1)*$ctrl.numOfPage)+$index+1 %>
+          </a>
+        </td>
+        <td style="text-align: center;">
+          <a ng-href="<% project.path %>"><img ng-src="<% project.cover_image_path %>" alt="" /></a>
+        </td>
+        <td>
+          <a ng-href="<% project.path %>"><% project.title %></a>
+        </td>
+        <td ng-repeat="field in $ctrl.filters.field">
+          <% ::(field.key != 'date') ?
+              (project.values[field.id].value || '-') :
+              (project.values[field.id].value | date:format:'dd LLLL, yyyy')
+          %>
+        </td>
+    </tr>
+  </tbody>
+</table>
+<div class="pagination-row">
+  <ul class="pagination pagination pull-right">
+    <li><a href="#" ng-click="$ctrl.currentPage = 1" ng-class="{ linkDisabled: $ctrl.currentPage == 1}"><span class="glyphicon glyphicon-step-backward"></span></a></li>
+    <li><a href="#" ng-click="$ctrl.currentPage = $ctrl.currentPage - 1" ng-class="{ linkDisabled: $ctrl.currentPage == 1}"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+    <li><span class="current_page"><% $ctrl.currentPage %></span></li>
+    <li><span>of <% $ctrl.maxPage %></span></li>
+    <li><a href="#" ng-click="$ctrl.currentPage = $ctrl.currentPage + 1" ng-class="{ linkDisabled: $ctrl.currentPage == $ctrl.maxPage }"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+    <li><a href="#" ng-click="$ctrl.currentPage =  $ctrl.maxPage" ng-class="{ linkDisabled: $ctrl.currentPage == $ctrl.maxPage }"><span class="glyphicon glyphicon-step-forward"></span></a></li>
+    <!-- <li><a href="#" class="printer"><span class="glyphicon glyphicon-print"></span></a></li> -->
+  </ul>
+  <span class="pull-right page-text">Page</span>
+</div>

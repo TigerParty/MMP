@@ -1,0 +1,47 @@
+
+<p class="h4" style="font-weight: bold;margin-bottom: 3px;"><% $ctrl.formName %></p>
+<div style="height: 400px; position: relative;background: #666;" ng-if="$ctrl.data !== undefined">
+  <a href="" class="carousel-btn previous" ng-hide="$ctrl.itemIndex==0" ng-click="$ctrl.previousItem()"><span class="glyphicon glyphicon-chevron-left"></span></a>
+  <ul style="height: 100%"
+      rn-carousel
+      rn-carousel-transition="none"
+      rn-carousel-buffered
+      rn-carousel-deep-watch="true"
+      rn-carousel-index="$ctrl.itemIndex">
+    <li ng-repeat="item in $ctrl.data[$ctrl.focus_report_index].items" class="image-item" style="display: inline-block;" ng-click="$ctrl.enlargeCtrl()">
+      <div class="meida-content">
+        <img ng-if="item.attachment_type.includes('image')"  ng-src="<% item.attachment_path %>">
+        <div ng-if="item.attachment_type.includes('video')"  style="height: 100%; width: 100%;">
+          <span class="glyphicon glyphicon-play video-icon" aria-hidden="true"></span>
+          <video  height="100%" ng-src="<% item.attachment_path %>" >
+            Sorry, your browser doesn't support embedded videos
+          </video>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <div class="info-content">
+      <h5 class="title"><% $ctrl.data[$ctrl.focus_report_index].items[$ctrl.itemIndex].description.header %></h5>
+      <p class="context"><% $ctrl.data[$ctrl.focus_report_index].items[$ctrl.itemIndex].description.content || 'No Description' %></p>
+  </div>
+  <a href="" class="carousel-btn next" ng-click="$ctrl.nextItem()" ng-hide="$ctrl.itemIndex==$ctrl.data[$ctrl.focus_report_index].items.length-1"><span class="glyphicon glyphicon-chevron-right"></span></a>
+
+  <div class="carousel-controls">
+    <a href="" ng-click="$ctrl.itemTo($index)" ng-repeat="item in $ctrl.data[$ctrl.focus_report_index].items track by $index" ng-class="{'carousel-controls-active': $ctrl.itemIndex == $index}"></a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="corres-report">
+      <div class="flex-xs" ng-click="$ctrl.previousReport('manually')"><a href="" ng-hide="$ctrl.focus_report_index==0"><span class="glyphicon glyphicon-chevron-left"></span></a></div>
+      <ul class="row" style="width: 100%; margin: 0;">
+        <a href="#" ng-repeat="(indx, reports) in $ctrl.data | show:$ctrl.focus_report_index">
+          <li class="col-md-2" ng-class="{'active': $ctrl.focus_report_index % 5 == indx}" ng-click="$ctrl.reportTo(indx)" style="display:inline-block; padding: 4px; text-align: center;color:white;"><span><% reports.attached_at %></span></li>
+        </a>
+        <div ng-if="$ctrl.data.length == 0"><% $ctrl.noreportString %></div>
+      </ul>
+      <div class="flex-xs" ng-click="$ctrl.nextReport('manually')"><a href="#" ng-class="{'display':$ctrl.focus_report_index==$ctrl.data.length-1}" ><span class="glyphicon glyphicon-chevron-right"></span></a></div>
+    </div>
+  </div>
+</div> <!-- end of .corres-report -->

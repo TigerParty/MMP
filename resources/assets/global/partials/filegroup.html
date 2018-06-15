@@ -1,0 +1,35 @@
+<div class="col-md-12">
+    <div class="row" ng-repeat="(index, file) in new_files">
+        <div class="col-md-2" ng-if="file.progress">
+            <div class="progress" style="height: 100%;">
+                <div class="progress-bar <% file.upload_bar_class %>"
+                    role="progressbar"
+                    style="width: <% file.progress %>%; height: 100%;"
+                >
+                    <% file.progressStatus == '100%' ? 'Scanning virus...' : file.progressStatus %>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-2" ng-if="file.progress > 0 && file.progress < 100">
+            <input class="glyphicon glyphicon-remove-sign" type="button" ng-click="cancelUpload()" value="Cancel">
+        </div>
+
+
+        <div class="col-md-3" ng-if="file.uploadedData">
+            <a href="<% file.uploadedData.download_path %>">
+                <% file.uploadedData.name %>
+            </a>
+            <input type="hidden" name="attachIDs[]" value="<%file.uploadedData.id%>">
+
+        </div>
+        <div class="col-md-3" ng-if="!file.uploadedData">
+                <% file.name %>
+        </div>
+        <div class="col-md-2">
+            <a href="" ng-click="removeFile(file)">delete</a>
+        </div>
+
+    </div>
+</div>

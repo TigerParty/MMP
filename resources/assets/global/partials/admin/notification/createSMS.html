@@ -1,0 +1,104 @@
+<style>
+</style>
+<div ng-show="!$ctrl.saveOnSuccess">
+  <div class="modal-header">
+      <h3 class="modal-title">Add SMS Notification</h3>
+  </div>
+  <div class="modal-body">
+    <table class="table table-bordred table-striped">
+      <thead>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Frequency</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="(index, item) in $ctrl.resolve.items">
+          <!-- row show -->
+          <td ng-show="!item.editable"><% item.receiver %></td>
+          <td ng-show="!item.editable"><% item.phone_number %></td>
+          <td ng-show="!item.editable"><% $ctrl.changeTitle(item.schedule) %></td>
+          <td ng-show="!item.editable && !item.showCheck">
+            <a href="#" class="btn btn-success" ng-click="$ctrl.editItem(item)">
+               Edit
+            </a>
+            <a href="#" class="btn btn-danger" ng-click="$ctrl.deleteItem(index)">
+               Delete
+            </a>
+          </td>
+          <!-- check image-->
+          <td class="text-center" ng-show="item.showCheck">
+            <img src="/images/icon/check.png">
+          </td>
+
+          <!-- row edit -->
+          <td ng-show="item.editable">
+            <input type="text"
+                   class="width-100-px"
+                   ng-model="item.receiver"
+                   ng-class="{'has-error': !item.validateFields.receiver}"
+                   uib-tooltip="Name is invalid"
+                   tooltip-enable="!item.validateFields.receiver"
+                   tooltip-is-open="!item.validateFields.receiver">
+          </td>
+          <td ng-show="item.editable">
+            <input type="text"
+                   ng-model="item.phone_number"
+                   ng-class="{'has-error': !item.validateFields.phone_number}"
+                   uib-tooltip="Phone number is invalid"
+                   tooltip-enable="!item.validateFields.phone_number"
+                   tooltip-is-open="!item.validateFields.phone_number">
+          </td>
+          <td ng-show="item.editable">
+            <select ng-model="item.schedule"
+                    ng-class="{'has-error': !item.validateFields.schedule}"
+                    uib-tooltip="Schedule is invalid"
+                    tooltip-enable="!item.validateFields.schedule"
+                    tooltip-is-open="!item.validateFields.schedule">
+                    <option ng-repeat="frequency in $ctrl.frequencies"
+                            value="<% frequency.value %>">
+                            <% frequency.title %>
+                    </option>
+            </select>
+          </td>
+          <td ng-show="item.editable">
+            <a href="#" class="btn btn-primary" ng-click="$ctrl.saveItem(item)">
+               Save
+            </a>
+            <a href="#" class="btn btn-danger" ng-click="$ctrl.deleteItem(index)">
+               Delete
+            </a>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+      <a href="#" class="btn btn-primary pull-left" ng-click="$ctrl.addNewItem()">
+        Add notification
+      </a>
+      <a href="#" class="btn btn-default" ng-click="$ctrl.dismiss()">
+        Close
+      </a>
+      <button class="btn btn-primary" ng-click="$ctrl.saveAllItem()" ng-disabled="$ctrl.saveButtonDisabled()">
+        Save
+      </button>
+  </div>
+</div>
+
+<!--SMS list save onSuccess-->
+<div class="save-success-modal text-center" ng-show="$ctrl.saveOnSuccess">
+  <div class="modal-body">
+    <p>
+      <img width="100" height="100" src="/images/icon/check-mark.png">
+    </p>
+    <p class="nice-text">Nice!</p>
+    <p>SMS list added successfully.</p>
+    <p>
+      <button class="btn btn-info" ng-click="$ctrl.close()">
+        OK
+      </button>
+    </p>
+  </div>
+</div>

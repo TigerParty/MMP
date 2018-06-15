@@ -1,0 +1,62 @@
+.message-board {
+  .message {
+    .content {
+      background: #ffffff;
+      &.reply {
+        @include background-opacity($grey-blue, 0.4);
+      }
+      .function-btn span{
+        opacity: 0.5;
+        cursor: pointer;
+        &:hover, &:focus, &.active {
+          opacity: 1;
+        }
+        &.active {
+          cursor: unset;
+        }
+      }
+    }
+    .reply-box {
+      @include background-opacity($grey-blue, 0.4);
+      text-align: right;
+      textarea {
+        outline: none;
+        resize: none;
+        width: 100%;
+        border: none;
+      }
+      button {
+        border-radius: 2px;
+        outline: none;
+        background: #4880ff;
+        height: 30px;
+        color: white;
+      }
+    }
+  }
+  .typing-bar {
+    background: #ffffff;
+    input {
+      outline: none;
+      width: 100%;
+      border-top: none;
+      border-right: none;
+      border-left: none;
+      border-bottom: 2px solid #CCC;
+      height: 36px;
+    }
+    textarea {
+      outline: none;
+      resize: none;
+      width: 100%;
+      height: 44px;
+    }
+    button {
+      border-radius: 2px;
+      outline: none;
+      background: #4880ff;
+      height: 40px;
+      color: white;
+    }
+  }
+}

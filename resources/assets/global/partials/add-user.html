@@ -1,0 +1,35 @@
+<div class="modal-header">
+    <h4 class="modal-title">Add Email Notification to <% report_title %></h4>
+</div>
+<div class="modal-body">
+    <form role="form" name="notificationForm" >
+      <div class="form-group">
+        <label for="">Name</label>
+        <input type="text" class="form-control"  placeholder="First name Last name" ng-model="notification.receiver" name="receiver" required>
+        <span style="color:grey" ng-show="notificationForm.receiver.$invalid">
+          <span ng-show="notificationForm.receiver.$error.required">*Name is required.</span>
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="">Email address</label>
+        <input type="email" class="form-control"  placeholder="john@abc.com" ng-model="notification.email" name="email" required>
+        <span style="color:grey" ng-show="notificationForm.email.$invalid">
+          <span ng-show="notificationForm.email.$error.required">*email address is required.</span>
+          <span ng-show="notificationForm.email.$error.email">*Invalid email address.</span>
+        </span>
+      </div>
+      <div class="form-group">
+        <label>Frequency</label>
+        <select ng-model="notification.schedule" class="form-control" ng-init="daily" >
+          <option value="daily">Daily</option>
+          <option value="weekly">Weekly</option>
+          <option value="monthly">Monthly</option>
+        </select>
+      </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-primary" type="button" ng-click="save()"
+    ng-disabled="notificationForm.receiver.$invalid || notificationForm.email.$invalid">Save</button>
+</div>

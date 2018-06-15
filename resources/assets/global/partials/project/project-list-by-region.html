@@ -1,0 +1,63 @@
+<div class="filter-row">
+  <!-- <div class="input-group">
+     <input type="text" class="form-control" placeholder="Search By Title" ng-model="$ctrl.conditions['title']">
+    <div class="input-group-addon" role="button" tabindex="0" ng-click="$ctrl.filterContainer()">
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+    </div>
+  </div> -->
+  <div class="pagination-row">
+    <span class="page-text">Page</span>
+    <ul class="pagination pagination ">
+      <li><a href="#" ng-click="$ctrl.currentPage = 1" ng-class="{ linkDisabled: $ctrl.currentPage == 1}"><span class="glyphicon glyphicon-step-backward"></span></a></li>
+      <li><a href="#" ng-click="$ctrl.currentPage = $ctrl.currentPage - 1" ng-class="{ linkDisabled: $ctrl.currentPage == 1}"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+      <li><span class="current_page"><% $ctrl.currentPage %></span></li>
+      <li><span class="max-page">of <% $ctrl.maxPage %></span></li>
+      <li><a href="#" ng-click="$ctrl.currentPage = $ctrl.currentPage + 1" ng-class="{ linkDisabled: $ctrl.currentPage == $ctrl.maxPage }"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+      <li><a href="#" ng-click="$ctrl.currentPage =  $ctrl.maxPage" ng-class="{ linkDisabled: $ctrl.currentPage == $ctrl.maxPage }"><span class="glyphicon glyphicon-step-forward"></span></a></li>
+    </ul>
+
+  </div>
+</div>
+<!-- table-hover -->
+<div class="table-responsive">
+  <table class="table result-table">
+    <thead>
+      <tr>
+        <th class="col-md-1"></th>
+        <th class="col-md-2"></th>
+        <th class="col-md-5">Title</th>
+        <th class="col-md-4">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="project in $ctrl.data | limitTo:$ctrl.numOfPage:($ctrl.currentPage-1)*$ctrl.numOfPage">
+          <td>
+            <a ng-href="<% project.path %>">
+              <% (($ctrl.currentPage-1)*$ctrl.numOfPage)+$index+1 %>
+            </a>
+          </td>
+          <td style="text-align: center;">
+            <a ng-href="<% project.path %>"><img ng-src="<% project.cover_image_path %>" alt="" /></a>
+          </td>
+          <td>
+            <a ng-href="<% project.path %>"><% project.title %></a>
+          </td>
+          <td>
+            <p class="project-description"><% project.description %></p>
+          </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="pagination-row">
+  <ul class="pagination pagination pull-right">
+    <li><a href="#" ng-click="$ctrl.currentPage = 1" ng-class="{ linkDisabled: $ctrl.currentPage == 1}"><span class="glyphicon glyphicon-step-backward"></span></a></li>
+    <li><a href="#" ng-click="$ctrl.currentPage = $ctrl.currentPage - 1" ng-class="{ linkDisabled: $ctrl.currentPage == 1}"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+    <li><span class="current_page"><% $ctrl.currentPage %></span></li>
+    <li><span>of <% $ctrl.maxPage %></span></li>
+    <li><a href="#" ng-click="$ctrl.currentPage = $ctrl.currentPage + 1" ng-class="{ linkDisabled: $ctrl.currentPage == $ctrl.maxPage }"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+    <li><a href="#" ng-click="$ctrl.currentPage =  $ctrl.maxPage" ng-class="{ linkDisabled: $ctrl.currentPage == $ctrl.maxPage }"><span class="glyphicon glyphicon-step-forward"></span></a></li>
+    <!-- <li><a href="#" class="printer"><span class="glyphicon glyphicon-print"></span></a></li> -->
+  </ul>
+  <span class="pull-right page-text">Page</span>
+</div>

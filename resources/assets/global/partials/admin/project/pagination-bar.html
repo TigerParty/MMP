@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="col-sm-12 col-md-offset-1 col-md-10 form-inline pagination-bar border-left-right">
+    <div class="row margin-zero">
+      <div class="col-xs-12 col-sm-12 col-md-3 padding-zero">
+        <div class="form-group">
+          <div class="formtype-title">Form Type</div>
+          <select class="form-control input-lg"
+            ng-model="$ctrl.conditions.form"
+            ng-options="form.id as form.name for form in $ctrl.forms"
+            ng-change="$ctrl.onConditionChange()"
+          >
+            <option value="">-- Select Form type --</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-6  pagination-block">
+        <div class="set-bottom">
+          <span class="pagination-counter">
+            Showing <% $ctrl.pageBegin() %>-<% $ctrl.pageEnd() || 0 %> of <% $ctrl.itemsCount || 0 %>
+          </span>
+          <ul class="pagination">
+            <li class="previous-btn">
+              <a href="#" ng-click="$ctrl.goToPage($ctrl.currentPage-1)">
+                <span aria-hidden="true">&lt;</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+
+            <li ng-repeat="page in $ctrl.paginations"
+            >
+              <a href="#"
+                ng-class="{'active':($ctrl.currentPage) == page}"
+                ng-bind="page+1"
+                ng-click="$ctrl.goToPage(page)"
+              ></a>
+            </li>
+
+            <li>
+              <a href="#" ng-click="$ctrl.goToPage($ctrl.currentPage+1)">
+                <span aria-hidden="true">&gt;</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Comment out for GS M2-->
+      <div class="col-xs-12 col-sm-12 col-md-3 padding-zero sort-by">
+        <div class="form-group">
+          <select class="form-control input-lg"
+            ng-model="$ctrl.conditions.orderBy"
+            ng-change="$ctrl.onConditionChange()">
+            <option value="">- Sort By -</option>
+            <option value="title">Alphabetical order</option>
+            <option value="updated_at">Most recently updated</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

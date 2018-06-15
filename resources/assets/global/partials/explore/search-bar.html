@@ -1,0 +1,159 @@
+<div class="filter">
+  <div class="container">
+    <div class="row filter-columns">
+      <div class="col-sm-3">
+        <div class="row">
+          <div class="col-xs-12 visible-xs mode-switch-xs">
+            <mode-switch class="visible-xs"
+              mode="$ctrl.mode">
+            </mode-switch>
+          </div>
+
+          <div class="col-xs-12 col-sm-12 col-md-12 filter-item pull-left" ng-click="$ctrl.showAdvanceBox = false">
+            <div class="input-group search-by-title">
+              <input ng-model="$ctrl.conditions.keyword" class="form-control" type="text" placeholder="Search <% $ctrl.containerName %> By Title">
+              <div class="input-group-addon" ng-click="$ctrl.searchProjects()">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-9">
+        <div class="row">
+          <div class="col-xs-12 col-sm-3 filter-item">
+            <div class="dropdown dropdown-wrapper" ng-click="$ctrl.showAdvanceBox = false">
+              <button class="btn btn-default dropdown-toggle dropdown-content"
+                      type="button" id="map-options-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                - <% $ctrl.lang.search_bar_map_options_title %> -
+                <span class="pull-right">
+                  <span class="glyphicon glyphicon-triangle-bottom"></span>
+                </span>
+              </button>
+              <ul class="dropdown-menu dropdown-list-wrapper" aria-labelledby="map-options-dropdown">
+                <li ng-repeat="option in $ctrl.mapOptions" ng-if="option.enable">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox"
+                        ng-model="$ctrl.map.layers.overlays[option.value].visible"
+                        ng-change="$ctrl.mapLayerChanged(option.value)"
+                      > <% option.name %>
+                    </label>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-sm-3 hidden-xs"
+            ng-repeat="(index, region_label) in $ctrl.filters.region_labels"
+            ng-click="$ctrl.showAdvanceBox = false"
+          >
+            <select class="dropdown-list"
+              ng-style="{'background-color': $ctrl.regions[index] ? 'white' : 'rgb(240,240,240)'}"
+              ng-model="$ctrl.conditions.regions[index]"
+              ng-options="region.id as region.name for region in $ctrl.regions[index] track by region.id"
+              ng-change="$ctrl.regionChanged(index)"
+              ng-disabled="!$ctrl.regions[index].length"
+            >
+              <option value="">- <% region_label | titleize %> -</option>
+            </select>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 more-options filter-item">
+            <div class="advance-search-container">
+              <div class="advance-search-button width-100-percent white-bg text-center" ng-click="$ctrl.showAdvanceBox = $ctrl.showAdvanceBox ? false : true">
+                <span>
+                  <% $ctrl.lang.search_bar_more %>
+                  <% $ctrl.enablingFieldsLength > 0 ? '('+$ctrl.enablingFieldsLength+')' : '' %>
+                </span>
+                <span class="pull-right">
+                  <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                </span>
+              </div>
+
+              <div class="advance-search-box" ng-show="$ctrl.showAdvanceBox">
+                <div class="advance-search-section">
+                  <div ng-if="$ctrl.statuses.length > 0">
+                    <label>Status</label>
+                    <select class="dropdown-list"
+                      ng-class="{'actived-filter':$ctrl.conditions.status}"
+                      ng-model="$ctrl.conditions.status"
+                      ng-options="status.name for status in $ctrl.statuses track by status.id"
+                      ng-change="$ctrl.searchProjects()"
+                    >
+                      <option value="">- Select -</option>
+                    </select>
+                  </div>
+
+                  <div ng-repeat="filterableField in $ctrl.filters.fields">
+                    <span ng-if="filterableField.filter_key == 'check_box'">
+                      <input id="single_category<% $index %>" type="checkbox"
+                        ng-change="$ctrl.fieldChanged(filterableField)"
+                        ng-model="$ctrl.fields[filterableField.id]">
+                    </span>
+
+                    <label for="single_category<% $index %>"><% filterableField.name %></label>
+
+                    <input class="form-control text_box"
+                      style="background: <% $ctrl.conditions.fields[filterableField.id] ? '#f6f2bc' : 'white' %>"
+                      ng-model="$ctrl.fields[filterableField.id]"
+                      ng-if="filterableField.filter_key == 'text_box'"
+                      ng-change="$ctrl.fieldChanged(filterableField)">
+
+                    <select class="dropdown-list"
+                      ng-class="{'actived-filter':$ctrl.conditions.fields[filterableField.id]}"
+                      ng-if="filterableField.filter_key == 'drop_down_list'"
+                      ng-model="$ctrl.fields[filterableField.id]"
+                      ng-options="filterableField for filterableField in filterableField.options"
+                      ng-change="$ctrl.fieldChanged(filterableField)">
+                      <option value="">- Select -</option>
+                    </select>
+
+                    <span class="row numerical" ng-if="filterableField.filter_key == 'numerical'">
+                      <span>
+                        <input class="form-control"
+                          type="number"
+                          ng-model="$ctrl.fields[filterableField.id].min"
+                          ng-change="$ctrl.fieldChanged(filterableField)">
+                      </span>
+                      <span class="text-center color-white">-</span>
+                      <span>
+                        <input class="form-control"
+                          type="number"
+                          ng-model="$ctrl.fields[filterableField.id].max"
+                          ng-change="$ctrl.fieldChanged(filterableField)">
+                      </span>
+                    </span>
+                  </div>
+                </div>
+
+                <hr ng-if="$ctrl.category_dropdowns">
+
+                <div class="advance-search-section">
+                  <div ng-repeat="category_dropdown in $ctrl.category_dropdowns track by $index">
+                    <span ng-if="category_dropdown.length > 1">
+                      <label><% category_dropdown[0].name %></label>
+                      <select class="dropdown-list"
+                        style="background: <% $ctrl.conditions.categories[$index] ? '#f6f2bc' : 'white' %>"
+                        ng-model="$ctrl.conditions.categories[$index]"
+                        ng-options="category.name for category in category_dropdown track by category.id"
+                        ng-change="$ctrl.searchProjects()">
+                        <option value="">- Select -</option>
+                      </select>
+                    </span>
+
+                    <span ng-if="category_dropdown.length == 1">
+                      <input id="single_category<% $index %>" type="checkbox" ng-model="category_dropdown[0].isChecked" ng-change="$ctrl.single_category_checker(category_dropdown, $index)">
+                      <label for="single_category<% $index %>"><% category_dropdown[0].name %></label>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

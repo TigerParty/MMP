@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <h4 class="modal-title"><% $ctrl.resolve.headerMsg %></h4>
+</div>
+<div class="modal-body">
+  <input type="file" ng-model="$ctrl.excelFile"
+    ngf-select="$ctrl.uploadExcel()"
+    accept="application/vnd.ms-excel"
+  >
+  <div style="padding-top: 5px; padding-left: 5px;">
+		<div ng-repeat="message in $ctrl.responseMessages" ng-style="{'color': message.color ? message.color : 'black'}"><% message.content %></div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default pull-right"
+    ng-click="$ctrl.exit()"
+  >Close</button>
+</div>

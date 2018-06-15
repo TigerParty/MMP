@@ -1,0 +1,13 @@
+<p class="input-group" ng-class="$ctrl.wrapperClass">
+    <input ng-class="$ctrl.controlClass" type="text"
+      ng-model="$ctrl.value"
+      uib-datepicker-popup="<% $ctrl.format %>"
+      is-open="$ctrl.isOpened"
+      ng-change="$ctrl.onChange()"
+    />
+    <span class="input-group-btn">
+      <button type="checkbox" ng-click="$ctrl.isOpened = true" class="btn btn-default">
+        <i class="glyphicon glyphicon-calendar"></i>
+      </button>
+    </span>
+</p>

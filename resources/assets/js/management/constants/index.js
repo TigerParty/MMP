@@ -1,0 +1,1 @@
+export const LAST_REPORT_DATETIME_FORMATE = 'MMM DD, YYYY'

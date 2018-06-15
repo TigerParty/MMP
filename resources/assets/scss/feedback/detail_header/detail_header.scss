@@ -1,0 +1,35 @@
+.detail-header {
+  height: 65px;
+  overflow: hidden;
+  .del-btn {
+    background: #ff6767;
+    cursor: pointer;
+    @include breakpoint(lg) {
+      position: absolute;
+      right: 0;
+    }
+    @include breakpoint(xl) {
+      position: static;
+    }
+    span {
+      display: none;
+    }
+    &:hover, &:focus, &:active {
+      span {
+        display: block;
+      }
+    }
+  }
+}
+
+.detail-header-mobile {
+  top: 0;
+  width: 100%;
+  z-index: map-get($z-layers, detail-header-mobile);
+  & + .content {
+    margin-top: 60px;
+    &.sms {
+      margin-top: 40px;
+    }
+  }
+}

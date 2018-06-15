@@ -1,0 +1,95 @@
+<div class="row">
+  <div class="col-md-offset-1 col-md-10 border-left-right admin-project-list-wrapper">
+    <div class="admin-project-list">
+      <div class="scroll-tools" hidden="true" ng-show="$ctrl.showScrollTool==='true'">
+        <div class="scroll-btn" ng-click="$ctrl.scroll('up')"><span class="glyphicon glyphicon-arrow-up"></span></div>
+        <div class="scroll-btn" ng-click="$ctrl.scroll('down')"><span class="glyphicon glyphicon-arrow-down"></span></div>
+        <div class="scroll-btn" ng-click="$ctrl.scroll('left')"><span class="glyphicon glyphicon-arrow-left"></span></div>
+        <div class="scroll-btn" ng-click="$ctrl.scroll('right')"><span class="glyphicon glyphicon-arrow-right"></span></div>
+
+      </div>
+      <table class="table table-bordered admin-project-table">
+        <thead>
+          <tr>
+            <th class="sticky-col">&nbsp;</th>
+            <th class="sticky-col">Edit</th>
+            <th class="sticky-col">Delete</th>
+            <th class="sticky-col">
+              <% $ctrl.containerName + ' Name' | titleize %>
+            </th>
+
+            <th ng-if="$ctrl.regionLabels"
+              ng-repeat="regionLabel in $ctrl.regionLabels"
+            >
+              <% regionLabel | titleize %>
+            </th>
+
+            <th ng-if="$ctrl.formFields" class="text-nowrap"
+              ng-repeat="formField in $ctrl.formFields"
+            >
+              <% formField.name %>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="(index, project) in $ctrl.projects"
+            ng-class="{warning:(project.mode == 'edit'),'admin-project-table-row':(project.mode != 'edit'),'sticky-col-editing':(project.mode == 'edit')}" ng-cloak
+          >
+            <td ng-class="{'sticky-col-editing':(project.mode == 'edit')}" class="sticky-col text-center" ><% ::index+$ctrl.offset+1 %></td>
+            <td ng-class="{'sticky-col-editing':(project.mode == 'edit')}" class="sticky-col text-center" >
+              <a class="glyphicon glyphicon-pencil"
+                ng-click="project.mode = 'edit'"
+                ng-if="project.mode != 'edit'"
+              ></a>
+              <a class="btn btn-info"
+                ng-click="$ctrl.updateProject(project)"
+                ng-if="project.mode == 'edit'"
+              >Save</a>
+            </td>
+            <td ng-class="{'sticky-col-editing':(project.mode == 'edit')}" class="sticky-col text-center" >
+              <a href="#" class="glyphicon glyphicon-trash"
+                ng-click="$ctrl.confirmDelete(project.id)"
+              ></a>
+            </td>
+
+            <td ng-class="{'sticky-col-editing':(project.mode == 'edit')}" class="sticky-col text-nowrap" style="">
+              <a ng-href="<% ::$ctrl.absUri + 'admin/project/' + project.id %>"
+                ng-if="project.mode != 'edit'"
+              >
+                <% ::project.title %>
+              </a>
+              <input
+                ng-if="project.mode == 'edit'"
+                ng-model="project.title"
+                class="width-100-percent"
+                style="border-color:<% project.errors['project.title'].length > 0 ? 'red' : 'auto' %>"
+                popover-placement="bottom"
+                popover-is-open="project.errors['project.title'].length > 0"
+                uib-popover="<% project.errors['project.title'].join(', ') %>"
+              >
+            </td>
+
+            <td ng-if="$ctrl.regionLabels" class="text-nowrap"
+              ng-repeat="regionLabel in $ctrl.regionLabels"
+            >
+              <% ::project.regions[regionLabel].name ? project.regions[regionLabel].name : '&nbsp;' %>
+            </td>
+
+            <td class="text-nowrap" ng-if="$ctrl.formFields"
+              ng-repeat="formField in $ctrl.formFields"
+            >
+              <dynamic-field
+                control-class=""
+                mode="project.mode"
+                template-key="formField.key"
+                options="formField.options"
+                value="project.values[formField.id].value"
+                formula="formField.formula"
+              ></dynamic-field>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

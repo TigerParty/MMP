@@ -1,0 +1,17 @@
+@import "../_variables";
+@import "./data_list/data_list";
+@import "./filter_tools/filter_tools";
+
+.carousel-item {
+    width: 80%;
+}
+
+.carousel-item.active::after {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100px;
+    right: -110px;
+    top: 0;
+    background: #898989;
+}

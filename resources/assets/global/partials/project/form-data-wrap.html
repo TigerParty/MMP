@@ -1,0 +1,16 @@
+<div class="form-data-set" ng-repeat="field in $ctrl.data"
+  ng-if="field.show"
+>
+  <p class="form-name"><% field.name %></p>
+  <p class="ellipsis-4" title="<% field.value %>" ng-if="field.field_template_key != 'gps_tracker'"><% field.value || '-' %></p>
+  <div ng-if="field.field_template_key == 'gps_tracker'">
+    <p><% $ctrl.titleGpsAvgspeed %>:</p>
+    <p><% field.value.avg_speed %> km/hr</p>
+    <p><% $ctrl.titleGpsDistance %>:</p>
+    <p><% field.value.tracker_distance %> km</p>
+    <p><% $ctrl.titleGpsStartTime %>:</p>
+    <p><% field.value.start_at %></p>
+    <p><% $ctrl.titleGpsEndTime %>:</p>
+    <p><% field.value.end_at %></p>
+  </div>
+</div>

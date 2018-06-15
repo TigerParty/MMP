@@ -1,0 +1,11 @@
+
+<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" ng-repeat="(courseIndex,course) in $ctrl.courses">
+    <div class="courses-list">
+        <h3 ng-click="$ctrl.onclickCourse({courseIndex: courseIndex, course: course})"><a ><%course.title%></a></h3>
+        <ul ng-if="course.hasOwnProperty('classes')">
+            <li ng-repeat="(classIndex, class) in course.classes">
+            	<a ng-click="$ctrl.onclickClass({courseIndex: courseIndex, classIndex: classIndex, class: class})"> <%class.title%> </a>
+            </li>
+        </ul>
+    </div>
+</div>

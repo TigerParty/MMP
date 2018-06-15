@@ -1,0 +1,114 @@
+@mixin new-tag {
+  position: absolute;
+  content: "NEW";
+  background: $lightish-blue;
+  color: #fff;
+  border-radius: 3px;
+  padding: 0px 8px;
+  font-size: 14px;
+  z-index: map-get($z-layers, new-tag);
+  top: -10px;
+  left: 5px;
+}
+
+.data-list {
+  .item {
+    &.new {
+      &::before {
+        @include new-tag;
+        @include breakpoint(lg) {
+          display: none;
+        }
+      }
+      @include breakpoint(lg) {
+        .item-name{
+          padding-right: 50px;
+          &::after {
+            @include new-tag;
+            top: 3px;
+            left: unset;
+            right: -13px;
+          }
+        }
+      }
+    }
+    select {
+      background-position: right 0px center;
+      background-repeat: no-repeat;
+      background-size: 9px;
+      -webkit-appearance: none;
+      padding-right: 18px;
+      background-color: transparent;
+      color: $lightish-blue;
+      font-size: 14px;
+      text-transform: capitalize;
+      font-weight: bold;
+      @include breakpoint(lg) {
+        color: $greyish-brown;
+      }
+      &:focus {
+        border: none!important;
+        box-shadow: none!important;
+        outline: none;
+      }
+    }
+    td.min-width {
+        width: 1px;
+        .item-name {
+            max-width: 500px;
+        }
+    }
+    .img-square-box {
+      position: relative;
+      width: 120px;
+      overflow: hidden;
+      background: #f8f8f8;
+      &::before {
+        content: "";
+        display: block;
+        padding-top: 100%;
+      }
+      .content {
+        position:  absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    }
+    .funtion-tools {
+      &>div {
+        position: relative;
+        &:not(:last-of-type){
+          &::after{
+            position: absolute;
+            content: "";
+            border-right: 2px solid #f8f8f8;
+            height: 100%;
+            top: 0;
+            right: 0;
+          }
+        }
+        .approvedBtn {
+          background-color: #f8f8f8;
+          .content {
+            width: 80px;
+          }
+          svg {
+              fill: #404040;
+          }
+          &.active {
+            background-color: #cbf3e5;
+            color: #238b65;
+            svg {
+              fill: #4FA284
+            }
+          }
+        }
+      }
+    }
+  }
+}

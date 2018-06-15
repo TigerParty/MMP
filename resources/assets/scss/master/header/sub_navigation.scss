@@ -1,0 +1,49 @@
+.left-sidebar-wrapper {
+  @include breakpoint(lg) {
+    position: fixed;
+    bottom: 0;
+    top: 0;
+    z-index: map-get($z-layers, left-sidebar-wrapper-lg);
+    padding-top: inherit;
+  }
+  .sub-navigation {
+    .item {
+      color: inherit;
+      img, svg {
+        width: 30px;
+        height: auto;
+        display: block;
+        margin: auto;
+        opacity: inherit;
+        @include breakpoint(sm) {
+          width: 35px;
+        }
+        @include breakpoint(lg) {
+          display: inline-block;
+          width: 30px;
+        }
+      }
+      &:hover {
+        color: inherit;
+        text-decoration: none;
+      }
+      &.acitve {
+        @include background-opacity($dusky-blue, 0.19)
+        opacity: 1;
+        &::after {
+          position: absolute;
+          content: '';
+          width: 100%;
+          height: 3px;
+          left: 0;
+          bottom: 0;
+          background: $yellow-tan;
+          @include breakpoint(lg) {
+            width: 4px;
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
+}

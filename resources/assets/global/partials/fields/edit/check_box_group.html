@@ -1,0 +1,9 @@
+<div>
+  <label class="checkbox-inline" ng-repeat="(idx, option) in $ctrl.options">
+    <input type="checkbox"
+      ng-model="$ctrl.value[option]"
+      ng-change="$ctrl.onChange()"
+    >
+    <% option %>
+  </label>
+</div>

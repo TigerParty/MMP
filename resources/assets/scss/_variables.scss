@@ -1,0 +1,75 @@
+$lightish-blue:             #4880ff;
+$grey-blue:                 #eaf0ff;
+$dark-grey-blue:            #26375f;
+$dark-blue-grey:            #1f3056;
+$dusky-blue:                #435785;
+$greyish-brown:             #404040;
+$greyish-brown-light:       #303030;
+$yellow-tan:                #ffe664;
+$yellow-tan-light:          #fff0a3;
+$bg-color:                  #f8f8f8;
+
+$theme-colors: (
+  primary:                  $lightish-blue,
+  secondary:                $dark-blue-grey,
+  yellow-tan:               $yellow-tan,
+  yellow-tan-light:         $yellow-tan-light,
+  dark-grey-blue:           $dark-grey-blue,
+  dusky-blue:               $dusky-blue,
+  greyish-brown:            $greyish-brown,
+  greyish-brown-light:      $greyish-brown-light,
+  grey-blue:                $grey-blue,
+  light-grey:               $bg-color
+);
+
+$body-bg:                   $bg-color;
+$font-family-base:          'Lato', sans-serif;
+
+/* custom RWD setting*/
+@mixin breakpoint($point) {
+  @if ($point == xl) {
+    @media only screen and (min-width: 1200px) {
+      @content
+    }
+  }
+  @else if ($point == lg) {
+    @media only screen and (min-width: 992px) {
+      @content
+    }
+  }
+  @else if ($point == md) {
+    @media only screen and (min-width: 768px) {
+      @content
+    }
+  }
+  @else if ($point == sm) {
+    @media only screen and (min-width: 576px) {
+      @content
+    }
+  }
+  @else if ($point == i7mobile) {
+    @media only screen and (min-width: 375px) {
+      @content
+    }
+  }
+}
+
+/* hex background color to rgb with opacity */
+@mixin background-opacity($color, $opacity: 1) {
+    background: $color;
+    background: rgba($color, $opacity);
+}
+
+
+/* z-index mangment*/
+$z-layers: (
+  toggle-button-input:  -10,
+  new-tag: 10,
+  more-btn-content: 20,
+  header-main-nav-mobile-active:  30,
+  header-main-nav-logo-btn-mobile-active:  40,
+  left-sidebar-wrapper-lg: 50,
+  header-fixed-lg: 60,
+  detail-header-mobile: 70,
+  modal-fixed: 80
+);

@@ -1,0 +1,17 @@
+<div class="row project-aggregated-data-list" ng-repeat="aggregated_field in $ctrl.data">
+  <div class="col-xs-5"><strong><% aggregated_field.title %>:</strong></div>
+  <div class="col-xs-7" ng-if="!$ctrl.isObject(aggregated_field.value)">
+    <% aggregated_field.value != NULL ? aggregated_field.value : '-' %>
+  </div>
+  <div class="col-xs-7" ng-if="$ctrl.isObject(aggregated_field.value)">
+    <div ng-if="aggregated_field.value.length == 0">
+      -
+    </div>
+    <div ng-repeat="value in aggregated_field.value">
+      <strong><% value.value %></strong>: <% value.percent %>
+    </div>
+    <div ng-if="aggregated_field.chart"><highchart id="chart1" config="aggregated_field.chart"></highchart></div>
+  </div>
+</div>
+
+<div class="text-center" ng-if="$ctrl.data.length == 0">No aggregated data to show.</div>

@@ -1,0 +1,60 @@
+<div class="row info-row">
+  <div class="col-xs-6 padding-right-zero" ng-show="$ctrl.projects.length > 0">
+    <div class="color-white">
+      Showing
+      <%($ctrl.currentPage-1)*$ctrl.projectsPerPage+1%>
+      of
+      <% $ctrl.totalItems %>
+    </div>
+    <ul uib-pagination class="pagination-sm"
+      total-items="$ctrl.totalItems"
+      ng-model="$ctrl.currentPage"
+      max-size="4"
+      items-per-page="$ctrl.projectsPerPage"
+      previous-text="&lsaquo;"
+      next-text="&rsaquo;">
+    </ul>
+  </div>
+  <div class="col-xs-6" ng-show="$ctrl.projects.length > 0">
+    <div style="color:white">Sort By:</div>
+    <select class="dropdown-list"
+      style="height: 22px"
+      ng-model="$ctrl.conditions.orderBy"
+      ng-change="$ctrl.searchProjects()">
+      <option value="">- Sort By -</option>
+      <option value="title">Alphabetical order</option>
+      <option value="updated_at">Most recently updated</option>
+      <option value="created_at">Time of Creation</option>
+    </select>
+  </div>
+</div>
+
+  <div class="project-item">
+    <table ng-repeat="project in $ctrl.projects | startFrom:($ctrl.currentPage-1)*$ctrl.projectsPerPage | limitTo:$ctrl.projectsPerPage track by $index">
+      <tr class="title-row">
+        <td rowspan="2" class="index"><% ($ctrl.currentPage-1)*$ctrl.projectsPerPage+1+$index %></td>
+        <td rowspan="2" class="index cover-img">
+          <img ng-src="<% project.cover_image_path %>">
+        </td>
+        <td class="school-name">
+          <% $ctrl.containerName %> Name
+        </td>
+        <td ng-repeat="regionLabel in $ctrl.filters.region_labels">
+          <% regionLabel | titleize %>
+        </td>
+        <td ng-repeat="filterable_field in $ctrl.filters.fields"><% filterable_field.name %></td>
+      </tr>
+      <tr>
+        <td><a ng-href="/project/<% project.id %>"><% project.title %></a></td>
+        <td ng-repeat="regionLabel in $ctrl.filters.region_labels">
+          <% project.regions[regionLabel].name %>
+        </td>
+        <td ng-repeat="filterable_field in $ctrl.filters.fields">
+          <% project.values[filterable_field.id].value %>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="row"><br></div>

@@ -1,0 +1,10 @@
+<label>
+  <input type="checkbox"
+    ng-model="$ctrl.value"
+    ng-true-value="'yes'"
+    ng-false-value="'no'"
+    ng-checked="<% $ctrl.value == 'yes' %>"
+    ng-change="$ctrl.onChange()"
+  >
+  <% $ctrl.value %>
+</label>

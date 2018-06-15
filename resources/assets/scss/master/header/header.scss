@@ -1,0 +1,93 @@
+header {
+  @include breakpoint(lg) {
+    box-shadow: 0 -2px 13px 0 rgba(0, 0, 0, 0.11);
+    position: fixed;
+    z-index: map-get($z-layers, header-fixed-lg);
+    &>.row{
+      height: 78px;
+    }
+  }
+  .logo img{
+    height: 45px;
+    width: auto;
+    @include breakpoint(i7mobile) {
+      height: 50px;
+    }
+    @include breakpoint(sm) {
+      max-height: 53px;
+    }
+    @include breakpoint(md) {
+      max-height: 55px;
+    }
+  }
+  .login-btn {
+    .btn {
+      box-shadow: 0 4px 13px 0 rgba(72, 128, 255, 0.32);
+      border-radius: 3px;
+    }
+  }
+  .account-info {
+    .circle {
+      box-shadow: -2px 3px 3px rgba(0,0,0,.2), 0 2px 2px rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.12);
+    }
+    .btn-group{
+      .down-icon {
+        &.dark {
+          svg {
+            fill: $dark-blue-grey;
+          }
+        }
+        svg {
+          width: 30px;
+          height: 30px;
+          display: block;
+          fill: #ffffff;
+        }
+      }
+      .dropdown-menu.show {
+        top: 10px!important;
+        text-align: right;
+      }
+      &.show {
+        .down-icon {
+          transform: rotate(-180deg);
+        }
+      }
+    }
+    &.mobile {
+      .btn-group.show {
+        flex-direction: column;
+        .dropdown-menu {
+          position: unset !important;
+          top: unset !important;
+          transform: translate3d(0px, 0px, 0px) !important;
+          background: transparent;
+          border: none;
+          text-align: center;
+          padding-top: 0px;
+          margin-top: 0px;
+          .dropdown-item {
+            color: white;
+            padding: 6px 0px;
+            font-size: 1.2rem;
+            &:hover, &:focus {
+              color: #eaf0ff;
+              background-color: transparent;
+            }
+          }
+          .dropdown-divider {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+  &.open-man-nav {
+    & + .app-content {
+      display: none;
+    }
+    .logo, .close-btn {
+      z-index: map-get($z-layers, header-main-nav-logo-btn-mobile-active);
+    }
+  }
+}

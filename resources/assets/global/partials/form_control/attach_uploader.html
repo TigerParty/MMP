@@ -1,0 +1,24 @@
+<div class="row form-group" ng-class="$ctrl.wrapperClass">
+  <div class="col-md-4">
+    <input type="file"
+      ng-class="$ctrl.controlClass"
+      ng-model="$ctrl.attach"
+      ngf-select="$ctrl.onFileChange($file)"
+    >
+    <span class="text-danger"
+      ng-if="$ctrl.errMsg"
+      ng-bind="$ctrl.errMsg"
+    ></span>
+  </div>
+
+  <div class="col-md-3">
+    <uib-progressbar
+      ng-if="$ctrl.progressPercent"
+      ng-class="$ctrl.progressClass"
+      value="$ctrl.progressPercent"
+      type="<% $ctrl.progressType %>"
+    >
+      <% $ctrl.progressPercent %>%
+    </uib-progressbar>
+  </div>
+</div>

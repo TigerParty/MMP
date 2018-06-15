@@ -1,0 +1,14 @@
+
+<div ng-if="isLogo" class="display-inline-block">
+	<label class="btn uploader-btn">
+	    <input type="file" class="display-none"  ngf-select="uploadFile($file)" accept="image/png, image/jpeg" />
+	    Choose File
+	</label>
+</div>
+<div ng-if="!isLogo" class="display-inline-block">
+	<label class="btn uploader-btn" >
+	    <input type="file" class="display-none" ngf-select="uploadFile($file)" >
+	    Choose File
+	</label>
+</div>
+<p class="display-inline-block">Maximum file size to upload is 32MB.</p>

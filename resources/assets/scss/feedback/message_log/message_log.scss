@@ -1,0 +1,98 @@
+.message-log {
+  .log-list{
+    @include breakpoint(lg) {
+      height: 500px;
+      overflow-y: scroll;
+    }
+    .log {
+      .content-col {
+        max-width:70%;
+        .content {
+          border-radius: 5px;
+          overflow: hidden;
+          &::after {
+            position: absolute;
+            content: '';
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+          }
+          audio {
+            display: block
+          }
+        }
+        .time {
+          color: #d0d0d0;
+          font-weight: normal;
+        }
+      }
+      .avatar-col {
+        margin-top: -24px;
+      }
+      &.host {
+        font-weight: lighter;
+        text-align: right;
+        justify-content: flex-end;
+        .content-col {
+          .content {
+            background-color: $lightish-blue;
+            color: #ffffff;
+            &::after {
+              right: -8px;
+              border-top: 10px solid transparent;
+              border-bottom: 10px solid transparent;
+              border-left: 10px solid $lightish-blue;
+              clear: both;
+            }
+          }
+        }
+      }
+      &.client {
+        font-weight: normal;
+        justify-content: flex-start;
+        .content-col {
+          margin-left: 8px;
+          .content {
+            background-color: $bg-color;
+            color: $greyish-brown;
+
+            &::after {
+              left: -8px;
+              border-top: 10px solid transparent;
+              border-bottom: 10px solid transparent;
+              border-right: 10px solid $bg-color;
+              clear: both;
+            }
+          }
+        }
+      }
+    }
+  }
+  .typing-bar {
+    input {
+      &::placeholder {
+        color: $greyish-brown;
+        opacity: 0.47;
+      }
+      &:focus {
+        border: none;
+        box-shadow: none;
+      }
+    }
+    .send-btn {
+      border-radius: 3px;
+      background-color: #5bd7aa;
+      svg {
+        transform: scale(1.2);
+        right: 7px;
+      }
+      &:not(:disabled) {
+        &:focus, &:hover {
+          background-color: rgba(91, 215, 170, 0.8);
+          box-shadow: none;
+        }
+      }
+    }
+  }
+}

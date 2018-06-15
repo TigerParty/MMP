@@ -1,0 +1,63 @@
+<table border="1">
+  <thead>
+    <tr>
+      <td>Name of <% $ctrl.containerName %>*</td>
+      <td>Created by*</td>
+      <td ng-repeat="regionLabel in $ctrl.regionLabels"><% regionLabel.charAt(0).toUpperCase() + regionLabel.slice(1) %>*</td>
+      <td ng-repeat="field in $ctrl.selectedForm.fields"><% field.name %></td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr style="background: <% project.submitStatusColor %>;color:<% project.submitSuccess ? '#999' : 'black' %>;" ng-repeat="(index, project) in $ctrl.projects">
+      <td style="background: <% project.errorColumns.title.length > 0 ? '#fffdc4' : 'auto'; %>">
+        <input id="row<% index %>column0"
+        class="batch-input" type="text"
+        ng-model="project.title"
+        ng-change="$ctrl.autoFillSupervisor(project)"
+        ng-disabled="project.submitSuccess"
+        uib-tooltip="<% project.errorColumns.title.join(', ') %>"
+        tooltip-placement="bottom"
+        tooltip-class="batch-entry-tooltips"
+        tooltip-is-open="project.errorColumns.title.length > 0"
+        tooltip-enable="project.errorColumns.title.length > 0">
+      </td>
+      <td>
+        <input class="batch-input" type="text" disabled="disabled" ng-model="project.supervisor">
+      </td>
+      <td ng-repeat="(regionIndex, regionLabel) in $ctrl.regionLabels" style="background: <% project.errorColumns.regions[regionIndex] ? '#fffdc4' : 'auto'; %>">
+        <select id="row<% index %>column<% regionIndex+1 %>"
+          class="batch-input"
+          ng-model="project.regions[regionIndex]"
+          ng-change="$ctrl.regionChanged(project, regionIndex)"
+          ng-options="region.id as region.name for region in project.regionOptions[regionIndex]"
+          ng-disabled="project.submitSuccess"
+          uib-tooltip="Please select <% regionLabel %>"
+          tooltip-placement="bottom"
+          tooltip-class="batch-entry-tooltips"
+          tooltip-is-open="project.errorColumns.regions[regionIndex]"
+          tooltip-enable="project.errorColumns.regions[regionIndex]">
+          <option value=""></option>
+        </select>
+      </td>
+      <td ng-repeat="(fieldIndex, field) in $ctrl.selectedForm.fields">
+        <input id="row<% index %>column<% $ctrl.regionLabels.length+fieldIndex+1 %>"
+          class="batch-input" type="<% field.key == 'numerical' ? 'number' : 'text' %>"
+          ng-if="field.key != 'drop_down_list'"
+          ng-model="project.values[field.id]"
+          ng-change="$ctrl.autoFillSupervisor(project)"
+          ng-disabled="project.submitSuccess">
+
+        <select id="row<% index %>column<% $ctrl.regionLabels.length+fieldIndex+1 %>"
+          class="batch-input"
+          ng-if="field.key == 'drop_down_list'"
+          ng-model="project.values[field.id]"
+          ng-options="option for option in field.options"
+          ng-change="$ctrl.autoFillSupervisor(project)"
+          ng-disabled="project.submitSuccess">
+          <option value=""></option>
+        </select>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,7 @@
+<label class="control-label col-sm-4 col-md-3" ><% field.name %></label>
+<div class="col-sm-8 col-md-4">
+	<input type="hidden" name="report[dynamic_form][fields][<% index %>][is_required]" ng-value="field.is_required">
+	<input type="hidden" name="report[dynamic_form][fields][<% index %>][id]" value="<% field.id%>">
+		<input type="checkbox" name="report[dynamic_form][fields][<% index %>][value]"
+				value="yes" ng-checked="<% field.checked %>">
+</div>

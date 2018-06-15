@@ -1,0 +1,10 @@
+<label class="radio-inline"
+  ng-repeat="(idx, option) in $ctrl.options"
+>
+  <input type="radio"
+    ng-model="$ctrl.value"
+    ng-value="option"
+    ng-change="$ctrl.onChange()"
+  >
+  <% option %>
+</label>

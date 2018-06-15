@@ -1,0 +1,35 @@
+<div class="modal-close" ng-click="close()"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></div>
+<div class="modal-body modal-slide">
+	<a href=""
+		 class="carousel-btn previous"
+		 ng-if="imageIndex > 0"
+		 ng-click="previousImage()"
+		 style="position: absolute;z-index: 100;top: 48%;font-size: 3em;color: white;"><span class="glyphicon glyphicon-chevron-left"></span></a>
+
+  <ul style="height: 100%"
+      rn-carousel
+      rn-carousel-buffered
+      rn-carousel-deep-watch="true"
+      rn-carousel-index="imageIndex">
+    <li ng-repeat="image in images" class="image-item">
+      <img ng-if="image.attachment_type.includes('image')"
+					 ng-src="<% image.attachment_path %>"
+					 style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);width: 100%;height: 100%;object-fit: contain;">
+
+      <video controls ng-if="image.attachment_type.includes('video')" height="100%" style="margin: 0 auto; display: block;">
+        <source ng-src="<% image.attachment_path %>" type="video/mp4">
+        Sorry, your browser doesn't support embedded videos
+      </video>
+    </li>
+  </ul>
+
+  <a href=""
+		 class="carousel-btn next"
+		 ng-if="imageIndex < images.length - 1"
+		 ng-click="nextImage()"
+		 style="position: absolute; z-index: 100; top: 48%; font-size: 3em; color: white; right: 15px;"><span class="glyphicon glyphicon-chevron-right"></span></a>
+
+  <div class="carousel-controls">
+    <a href="" ng-click="imageTo($index)" ng-repeat="image in images track by $index" ng-class="{'carousel-controls-active': imageIndex == $index}"></a>
+  </div>
+</div>

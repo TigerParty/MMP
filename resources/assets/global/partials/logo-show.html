@@ -1,0 +1,6 @@
+<div class="logo-uploader" ng-if="new_logo[0].uploadedData ">
+  <a href="" class="close-thik" ng-click="removeLogo()"></a>
+  <img ng-src="<% new_logo[0].uploadedData.asset_path %>"
+       class="mx-auto img-logo"/>
+  <input type="hidden" name="default_image" value="<%new_logo[0].uploadedData.id%>">
+</div>

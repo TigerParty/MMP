@@ -1,0 +1,64 @@
+<div class="row">
+  <div class="col-md-offset-1 col-md-10 form-inline filter-bar border-left-right">
+    <!-- Keyword filter -->
+    <div class="form-group">
+      <div class="input-group">
+        <input class="form-control input-lg" type="text"
+          ng-model="$ctrl.conditions.keyword"
+          ng-model-options="{ debounce: 1000 }"
+          ng-change="$ctrl.onConditionChange()"
+          placeholder="Search"
+        >
+        <div class="input-group-addon border-radius-zero white-bg" ng-click="$ctrl.searchProjects()">
+          <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Region filter -->
+    <div class="form-group" ng-repeat="(index, region_label) in $ctrl.filters.region_labels">
+      <select class="form-control input-lg"
+        ng-model="$ctrl.conditions.regions[index]"
+        ng-options="region.id as region.name for region in $ctrl.regions[index] track by region.id"
+        ng-change="$ctrl.regionChanged(index)"
+        ng-disabled="!$ctrl.regions[index].length"
+      >
+        <option value="">-- <% region_label | titleize%> --</option>
+      </select>
+    </div>
+
+    <!-- Fields filter -->
+    <div class="form-group" ng-repeat="(index, field) in $ctrl.filters.fields">
+      <select class="form-control input-lg"
+        ng-if="field.filter_key == 'drop_down_list'"
+        ng-options="option for option in field.options"
+        ng-change="$ctrl.fieldChanged(field)"
+        ng-model="$ctrl.fields[field.id]"
+      >
+        <option value="">-- <% field.name | titleize %> --</option>
+      </select>
+
+      <input type="text" class="form-control input-lg"
+        ng-if="field.filter_key == 'text_box'"
+        ng-change="$ctrl.fieldChanged(field)"
+        ng-model-options="{ debounce: 1000 }"
+        ng-model="$ctrl.fields[field.id]"
+        placeholder="<% field.name %>"
+      >
+
+      <label class="form-control margin-bottom-zero normal-weight input-lg"
+        ng-if="field.filter_key == 'check_box'"
+        for="field_<% field.id %>"
+      >
+        <% field.name %>&nbsp;
+        <input type="checkbox"
+          ng-if="field.filter_key == 'check_box'"
+          id="field_<% field.id %>"
+          ng-model="$ctrl.fields[field.id]"
+          ng-change="$ctrl.fieldChanged(field)"
+          ng-true-value="'<%field.name%>'"
+        >
+      </label>
+    </div>
+  </div> <!-- EOF col -->
+</div> <!-- EOF row -->

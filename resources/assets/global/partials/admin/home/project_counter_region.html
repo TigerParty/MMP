@@ -1,0 +1,25 @@
+<div class="panel panel-default">
+  <input type="hidden" name="home_components[project_counter_region][]" value="">
+  <div class="panel-heading">
+    <h3 class="panel-title">Project Counter</h3>
+    <label class="btn btn-default pull-right del-btn" ng-click="$ctrl.deleteComponent()"> Delete</label>
+  </div>
+  <div class="panel-body">
+    <div id="wrapper-project-counter-region" class="container-fluid">
+      <div class="row">
+        <div class="title">
+          <h4>CURRENT SCHOOLS
+            <br>
+              <% total %>
+          </h4>
+        </div>
+        <div class="region-stats">
+          <div class="region" ng-repeat="region in regions">
+            <p><% region.projects.length %></p>
+            <p><% region.name %><span ng-show="region.name.length < 15"><br>&nbsp;</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

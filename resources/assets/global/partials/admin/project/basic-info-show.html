@@ -1,0 +1,30 @@
+<div class="row" id="basic-info-show">
+  <div class="col-md-offset-1 col-md-10 border-left-right">
+  <a href="<% $ctrl.absUri %>admin/project/<% $ctrl.projectId %>/edit"><button class="pull-right project-admin-button color-black">edit</button></a>
+  <h5 class="project-admin-section-title">Basic Info</h5>
+  <dl>
+    <div ng-repeat="region in $ctrl.basicInfo.regions track by $index" class="row">
+      <dt class="col-md-2 project-admin-dt"><% region.label_name.charAt(0).toUpperCase() + region.label_name.slice(1) %></dt>
+      <dd class="col-md-10"><% region.name %></dd>
+    </div>
+
+    <div class="row">
+      <dt class="col-md-2 project-admin-dt">Description</dt>
+      <dd class="col-md-10"><% $ctrl.basicInfo.descirption_html %></dd>
+    </div>
+
+    <div class="row">
+      <dt class="col-md-12 project-admin-dt">Logo</dt>
+    </div>
+
+    <div class="row">
+      <dt class="col-md-3">
+        <div class="project-admin-img-box">
+          <img ng-src="<% $ctrl.basicInfo.default_image_path %>">
+        </div>
+      </dt>
+    </div>
+  </dl>
+  <hr class="project-admin-hr" />
+  </div>
+</div>

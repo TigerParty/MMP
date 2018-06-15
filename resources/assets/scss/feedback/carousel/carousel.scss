@@ -1,0 +1,42 @@
+$CAROUSEL_IMG_HEIGHT: 400px;
+$CAROUSEL_DESCRIPTION_MIN_HEIGHT: 100px;
+$CAROUSEL_INDICATOR_TOP: 375px;
+
+
+.carousel{
+  .carousel-inner {
+    .carousel-item {
+      .img-box{
+        height: $CAROUSEL_IMG_HEIGHT;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: #d9d9d9a6;
+      }
+      .description {
+        min-height: $CAROUSEL_DESCRIPTION_MIN_HEIGHT;
+        .title {
+          opacity: 1;
+        }
+      }
+    }
+  }
+  .carousel-control-prev,
+  .carousel-control-next {
+    bottom: unset;
+    height: $CAROUSEL_IMG_HEIGHT;
+  }
+  .carousel-indicators {
+    bottom: unset;
+    top: $CAROUSEL_INDICATOR_TOP;
+    li {
+      width: 8px;
+      height: 8px;
+      margin-right: 5px;
+      margin-left: 5px;
+      border-radius: 50%;
+      cousor: pointer;
+    }
+  }
+}
+
